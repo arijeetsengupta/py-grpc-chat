@@ -89,7 +89,7 @@ def login_verify():
         response = stub.login(chat_pb2.Creds(username=username1, password=password1))
         print("Login response : " + response.response)
         if response.response == "Login successful":
-            login_sucess(username1, password1)
+            login_sucess(username1)
         elif response.response == "Incorrect password":
             password_not_recognised()
         else:
@@ -98,13 +98,13 @@ def login_verify():
 
 # Designing popup for login success
 
-def login_sucess(username1, password1):
+def login_sucess(username1):
     global login_success_screen
     login_success_screen = Toplevel(login_screen)
     login_success_screen.title("Success")
     login_success_screen.geometry("150x100")
     Label(login_success_screen, text="Login Success").pack()
-    Button(login_success_screen, text="Proceed to Chat", command=delete_login_success).pack()
+    Button(login_success_screen, text="Proceed to Chat", command=lambda: delete_login_success(username1)).pack()
 
 
 # Designing popup for login invalid password
@@ -129,10 +129,10 @@ def user_not_found():
     Button(user_not_found_screen, text="OK", command=delete_user_not_found_screen).pack()
 
 
-def delete_login_success():
+def delete_login_success(username1):
     login_success_screen.destroy()
     main_screen.destroy()
-    application = client.ChatApp()
+    application = client.ChatApp(username1)
     application.mainloop()
 
 

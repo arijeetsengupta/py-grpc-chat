@@ -10,12 +10,12 @@ import src.server.chat_pb2_grpc as chat_pb2_grpc
 class ChatApp(tk.Tk):
     """Tkinter Chat application to send messages to other users"""
 
-    def __init__(self):
+    def __init__(self, username):
         super(ChatApp, self).__init__()
         self.title('Chat Application with gRPC!')
         self.grid()
         self.resizable(False, False)
-
+        self.username = username
         self.__reciever_thread = None
         self.__active_user_thread = None
         self.__client = client.ChatClient()
@@ -37,7 +37,7 @@ class ChatApp(tk.Tk):
         self.__chat_message_frame = frame.ChatMessagesFrame(self)
         self.__chat_message_frame.grid(row=1, column=0, columnspan=4, sticky=tk.EW)
 
-        self.__active_user_frame = frame.ActiveUsersFrame(self)
+        self.__active_user_frame = frame.ActiveUsersFrame(self, self.username)
         self.__active_user_frame.grid(row=1, column=4, columnspan=2)
 
         self.__chatbox_frame = frame.ChatboxFrame(self, self.__client, message_send_callback=self.__message_send_callback)

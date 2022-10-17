@@ -4,7 +4,6 @@ from src.client.frame.one_one_window import one_one_chat
 from tkinter.messagebox import showinfo
 
 
-
 class ActiveUsersFrame(tk.Frame):
     """Frame to list the active users in the chat session"""
 
@@ -12,13 +11,14 @@ class ActiveUsersFrame(tk.Frame):
     __ACTIVE_USER_LIST_HEIGHT = 18
     __ACTIVE_USER_BORDER_SIZE = 0
 
-    def __init__(self, master):
+    def __init__(self, master, username):
         """ActiveUsersFrame constructor
 
         Args:
             master: The parent tk component. Either a frame or tkinter Tk.
         """
         super(ActiveUsersFrame, self).__init__(master)
+        self.username = username
         self.__setup_widgets()
 
     def __setup_widgets(self):
@@ -38,7 +38,8 @@ class ActiveUsersFrame(tk.Frame):
             # get selected items
             recipient = ",".join([self.__active_users_list.get(i) for i in selected_indices])
             msg = f'You selected: {recipient}'
-            one_one_chat(recipient)
+            print(self.username)
+            one_one_chat(self.username, recipient)
             # showinfo(title='Information', message=msg)
 
         self.__active_users_list.bind('<<ListboxSelect>>', items_selected)
