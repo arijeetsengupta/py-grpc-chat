@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+service Chat {
+    rpc connect(ChatUser) returns (ChatUserConnected);
+    rpc disconnect(ChatUserConnected) returns (ChatUserConnected);
+    rpc sendMessage(ChatMessage) returns (ChatMessage);
+    rpc subscribeMessages(ChatUserConnected) returns (stream ChatMessage);
+    rpc subscribeActiveUsers(ChatUserConnected) returns (stream ChatActiveUser);
+    rpc register(Creds) returns (ServerResponse);
+    rpc login(Creds) returns (ServerResponse);
+}
+
+message ChatUser {
+    string username = 1;
+}
+
+message ChatUserConnected {
+    string userId = 1;
+    string username = 2;
+}
+
+message ChatActiveUser {
+    string userId = 1;
+    string username = 2;
+    string currentHash = 3;
+}
+
+message ChatUserDisconnect {
+    bool isDisconnected = 1;
+}
+
+message ChatMessage {
+    string userId = 1;
+    string username = 2;
+    string message = 3;
+    string recipient = 4;
+}
+
+message Creds {
+    string username = 1;
+    string password = 2;
+}
+
+message ServerResponse {
+    string response = 1;
+}
