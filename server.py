@@ -17,12 +17,10 @@ def main():
 
     yaml_config = utils.read_yaml_config(YAML_CONFIG_PATH)
     server_host, server_port = utils.get_server_config_from_yaml(yaml_config)
-
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    chat_pb2_grpc.add_ChatServicer_to_server(service, server)
-
-    logging.info('Starting Server')
-    server.add_insecure_port(f'{server_host}:{server_port}')
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))  # create a gRPC server
+    chat_pb2_grpc.add_ChatServicer_to_server(service, server)  # register the server to gRPC
+    print('Starting server. Listening...')
+    server.add_insecure_port('[::]:' + str(server_port))
     server.start()
 
     try:
