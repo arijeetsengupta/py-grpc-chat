@@ -2,12 +2,21 @@ import src.client as client
 import src.server.chat_pb2 as chat_pb2
 import src.server.chat_pb2_grpc as chat_pb2_grpc
 import grpc
+import src.utils as utils
 
 from tkinter import *
 import os
 
+# YAML_CONFIG_PATH = 'config.yaml'
+
 
 # Designing window for registration
+
+def get_server_config_from_file():
+    YAML_CONFIG_PATH = 'config.yaml'
+    yaml_config = utils.read_yaml_config(YAML_CONFIG_PATH)
+    return utils.get_server_config_from_yaml(yaml_config)
+
 
 def register():
     global register_screen
@@ -72,7 +81,8 @@ def register_user():
     username_info = username.get()
     password_info = password.get()
     print("In register user")
-    with grpc.insecure_channel('localhost:50051') as channel:
+    server_host, server_port = get_server_config_from_file()
+    with grpc.insecure_channel(str(server_host)+':'+str(server_port)) as channel:
         stub = chat_pb2_grpc.ChatStub(channel)
         response = stub.register(chat_pb2.Creds(username=username_info, password=password_info))
         print("Registration response : " + response.response)
@@ -84,7 +94,8 @@ def register_user():
 def login_verify():
     username1 = username_verify.get()
     password1 = password_verify.get()
-    with grpc.insecure_channel('localhost:50051') as channel:
+    server_host, server_port = get_server_config_from_file()
+    with grpc.insecure_channel(str(server_host)+':'+str(server_port)) as channel:
         stub = chat_pb2_grpc.ChatStub(channel)
         response = stub.login(chat_pb2.Creds(username=username1, password=password1))
         print("Login response : " + response.response)
