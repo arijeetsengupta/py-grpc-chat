@@ -27,6 +27,7 @@ class ChatMessagesFrame(tk.Frame):
             username: The user's username
         """
         next_item_index = self.__chat_messages.size() + 1
+        # if recipient ==
         self.__chat_messages.insert(next_item_index, '[{:10}] - {}'.format(username, message))
 
     def clear_chat_messages(self):

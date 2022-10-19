@@ -62,7 +62,9 @@ class ChatApp(tk.Tk):
     def __message_reciever_handler(self):
         response = self.__client.subscribe_messages()
         for message in response:
-            self.__chat_message_frame.add_message(message.username, message.message)
+            if message.is_broadcast:
+                self.__chat_message_frame.add_message(
+                    message.username, message.message)
 
     def __active_user_reciever_handler(self):
         response = self.__client.subscribe_active_users()
@@ -79,4 +81,5 @@ class ChatApp(tk.Tk):
         self.__active_user_frame.clear_active_user_list()
 
     def __message_send_callback(self, msg):
-        self.__chat_message_frame.add_message(self.__client.username, msg)
+        if msg.is_broadcast:
+            self.__chat_message_frame.add_message(self.__client.username, msg.message)

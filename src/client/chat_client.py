@@ -81,7 +81,7 @@ class ChatClient:
         """
         if not self.__is_connected:
             raise client_exceptions.NotConnectedError("Error: you have not connected to the chat server!")
-        message.recipient = "abc"
+        message.is_broadcast = 1
         return self.__stub.sendMessage(message)
 
     def subscribe_active_users(self):

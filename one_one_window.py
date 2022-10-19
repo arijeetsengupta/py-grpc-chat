@@ -17,18 +17,18 @@ def get_server_config_from_file():
     return utils.get_server_config_from_yaml(yaml_config)
 
 
-def subscribe_messages(username, txt):
+def subscribe_messages(username, recipient, txt):
     print("Entered subscribe message thread")
     server_host, server_port = get_server_config_from_file()
-    with grpc.insecure_channel(str(server_host)+':'+str(server_port)) as channel:
+    with grpc.insecure_channel(str(server_host) + ':' + str(server_port)) as channel:
         stub = chat_pb2_grpc.ChatStub(channel)
         responses = stub.subscribeMessages(chat_pb2.ChatUserConnected(userId=username, username=username))
         for response in responses:
-            print("Message received from {}: {}".format(response.username, response.message))
-            send = response.username + " -> " + response.message
-            txt.insert(END, "\n" + send)
-            # user = e.get().lower()
-            # e.delete(0, END)
+            # print("response: "+response)
+            if not response.is_broadcast and response.recipient == username and response.username == recipient:
+                print("Message received from {}: {}".format(response.username, response.message))
+                send = response.username + " -> " + response.message
+                txt.insert(END, "\n" + send)
 
 
 def send(e, txt, username, recipient):
@@ -39,21 +39,22 @@ def send(e, txt, username, recipient):
     e.delete(0, END)
     print("Sending message: " + message)
     server_host, server_port = get_server_config_from_file()
-    with grpc.insecure_channel(str(server_host)+':'+str(server_port)) as channel:
+    with grpc.insecure_channel(str(server_host) + ':' + str(server_port)) as channel:
         stub = chat_pb2_grpc.ChatStub(channel)
         response = stub.sendMessage(chat_pb2.ChatMessage(
             userId=username,
             username=username,
             message=message,
-            recipient=recipient))
+            recipient=recipient,
+            is_broadcast=0))
         print("Registration response : " + response.response)
 
 
 # class One_one(ChatClient):
 def one_one_chat(username, recipient):
-    print("Username in one_one_chat: "+username)
+    print("Username in one_one_chat: " + username)
     root = Tk()
-    root.title("Chat with "+recipient)
+    root.title("Chat with " + recipient)
 
     BG_GRAY = "#ABB2B9"
     BG_COLOR = "#17202A"
@@ -63,7 +64,8 @@ def one_one_chat(username, recipient):
     FONT_BOLD = "Helvetica 13 bold"
 
     # Send function
-    lable1 = Label(root, bg=BG_COLOR, fg=TEXT_COLOR, text=recipient, font=FONT_BOLD, pady=10, width=20, height=1).grid(
+    lable1 = Label(
+        root, bg=BG_COLOR, fg=TEXT_COLOR, text=username+"->"+recipient, font=FONT_BOLD, pady=10, width=20, height=1).grid(
         row=0)
     txt = Text(root, bg=BG_COLOR, fg=TEXT_COLOR, font=FONT, width=60)
     txt.grid(row=1, column=0, columnspan=2)
@@ -73,7 +75,7 @@ def one_one_chat(username, recipient):
     e.grid(row=2, column=0)
     btn = Button(root, text="Send", font=FONT_BOLD, bg=BG_GRAY,
                  command=lambda: send(e, txt, username, recipient)).grid(row=2, column=1)
-    Thread(target=subscribe_messages, args=(username,txt,)).start()
+    Thread(target=subscribe_messages, args=(username, recipient, txt,)).start()
     # subscribe_messages(username)
 
     root.mainloop()
