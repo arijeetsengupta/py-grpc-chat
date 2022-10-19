@@ -89,7 +89,10 @@ class ChatService(chat_pb2_grpc.ChatServicer):
         """
         logging.info(f'User {request.userId} has sent a message for {request.recipient}')
         self.chats.append(request)
-        return chat_pb2.ChatMessage(userId=request.userId, username=request.username, message=request.message)
+        # return chat_pb2.ChatMessage(userId=request.userId, username=request.username, message=request.message)
+        return chat_pb2.ServerResponse(
+            response="Server recieved message [{}] from [{}] to [{}]".format(
+                request.message, request.userId, request.recipient))
 
     def subscribeMessages(self, request, context):
         """Endpoint to subscribe to new messages from different users on the chat server.

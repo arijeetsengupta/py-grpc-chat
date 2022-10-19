@@ -27,7 +27,7 @@ class ChatStub(object):
         self.sendMessage = channel.unary_unary(
                 '/Chat/sendMessage',
                 request_serializer=src_dot_server_dot_chat__pb2.ChatMessage.SerializeToString,
-                response_deserializer=src_dot_server_dot_chat__pb2.ChatMessage.FromString,
+                response_deserializer=src_dot_server_dot_chat__pb2.ServerResponse.FromString,
                 )
         self.subscribeMessages = channel.unary_stream(
                 '/Chat/subscribeMessages',
@@ -67,7 +67,8 @@ class ChatServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def sendMessage(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """rpc sendMessage(ChatMessage) returns (ChatMessage);
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -112,7 +113,7 @@ def add_ChatServicer_to_server(servicer, server):
             'sendMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.sendMessage,
                     request_deserializer=src_dot_server_dot_chat__pb2.ChatMessage.FromString,
-                    response_serializer=src_dot_server_dot_chat__pb2.ChatMessage.SerializeToString,
+                    response_serializer=src_dot_server_dot_chat__pb2.ServerResponse.SerializeToString,
             ),
             'subscribeMessages': grpc.unary_stream_rpc_method_handler(
                     servicer.subscribeMessages,
@@ -191,7 +192,7 @@ class Chat(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Chat/sendMessage',
             src_dot_server_dot_chat__pb2.ChatMessage.SerializeToString,
-            src_dot_server_dot_chat__pb2.ChatMessage.FromString,
+            src_dot_server_dot_chat__pb2.ServerResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
