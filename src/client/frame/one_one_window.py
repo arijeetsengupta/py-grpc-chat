@@ -21,6 +21,23 @@ def subscribe_messages(username, txt):
             # e.delete(0, END)
 
 
+def send(e, txt, username, recipient):
+    message = e.get()
+    send = "You -> " + message
+    txt.insert(END, "\n" + send)
+    user = e.get().lower()
+    e.delete(0, END)
+    print("Sending message: " + message)
+    with grpc.insecure_channel('localhost:50051') as channel:
+        stub = chat_pb2_grpc.ChatStub(channel)
+        response = stub.sendMessage(chat_pb2.ChatMessage(
+            userId=username,
+            username=username,
+            message=message,
+            recipient=recipient))
+        print("Registration response : " + response.response)
+
+
 # class One_one(ChatClient):
 def one_one_chat(username, recipient):
     print("Username in one_one_chat: "+username)
@@ -35,22 +52,6 @@ def one_one_chat(username, recipient):
     FONT_BOLD = "Helvetica 13 bold"
 
     # Send function
-    def send():
-        nonlocal e
-        send = "You -> " + e.get()
-        txt.insert(END, "\n" + send)
-        user = e.get().lower()
-        e.delete(0, END)
-        print("Sending message" + e.get())
-        with grpc.insecure_channel('localhost:50051') as channel:
-            stub = chat_pb2_grpc.ChatStub(channel)
-            response = stub.sendMessage(chat_pb2.ChatMessage(
-                userId=username,
-                username=username,
-                message=e.get(),
-                recipient=recipient))
-            print("Registration response : " + response.response)
-
     lable1 = Label(root, bg=BG_COLOR, fg=TEXT_COLOR, text=recipient, font=FONT_BOLD, pady=10, width=20, height=1).grid(
         row=0)
     txt = Text(root, bg=BG_COLOR, fg=TEXT_COLOR, font=FONT, width=60)
@@ -59,8 +60,8 @@ def one_one_chat(username, recipient):
     scrollbar.place(relheight=1, relx=0.974)
     e = Entry(root, bg="#2C3E50", fg=TEXT_COLOR, font=FONT, width=55)
     e.grid(row=2, column=0)
-    send = Button(root, text="Send", font=FONT_BOLD, bg=BG_GRAY,
-                  command=send).grid(row=2, column=1)
+    btn = Button(root, text="Send", font=FONT_BOLD, bg=BG_GRAY,
+                 command=lambda: send(e, txt, username, recipient)).grid(row=2, column=1)
     Thread(target=subscribe_messages, args=(username,txt,)).start()
     # subscribe_messages(username)
 
