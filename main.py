@@ -156,6 +156,7 @@ def delete_login_success(username1):
     login_success_screen.destroy()
     main_screen.destroy()
     application = client.ChatApp(username1)
+    
     application.mainloop()
 
 
