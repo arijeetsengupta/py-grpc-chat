@@ -12,10 +12,10 @@ class ConnectionStatus(Enum):
 class ConnectionFrame(BaseChatFrame):
     """Frame to enable a user to connect or disconnect from the chat server"""
 
-    __BUTTON_WIDTH = 15
-    __STATUS_LABLE_WIDTH = 15
+    __BUTTON_WIDTH = 10
+    __STATUS_LABLE_WIDTH = 20
 
-    def __init__(self, master, grpc_client, connected_callback=None, disconnect_callback=None):
+    def __init__(self, master, grpc_client, username, connected_callback=None, disconnect_callback=None):
         """ConnectionFrame constructor
 
         Args:
@@ -27,6 +27,7 @@ class ConnectionFrame(BaseChatFrame):
         super(ConnectionFrame, self).__init__(master, grpc_client)
         self._connected_callback = connected_callback
         self._disconnect_callback = disconnect_callback
+        self.username = username
 
         self.__connection_config_map = {
             ConnectionStatus.CONNECTED: {
@@ -48,13 +49,14 @@ class ConnectionFrame(BaseChatFrame):
             self.__disconnect_from_server()
 
     def __setup_widgets(self):
-        self.__setup_username_input_widget()
+        # self.__setup_username_input_widget()
         self.__setup_connection_btn_widget()
         self.__setup_connection_status_label_widget()
 
     def __setup_username_input_widget(self):
-        self.username_input = tk.Entry(self)
-        self.username_input.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        # self.username_input = tk.Entry(self)
+        lable1 = tk.Label(text=self.username)
+        lable1.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
     def __setup_connection_btn_widget(self):
         self.connect_btn = tk.Button(self, width=self.__BUTTON_WIDTH, command=self.__btn_action_toggle_client_connection)
@@ -73,7 +75,7 @@ class ConnectionFrame(BaseChatFrame):
             self._disconnect_callback()
 
     def __connect_to_server(self):
-        username = self.username_input.get()
+        username = self.username
         self.user = self._grpc_client.connect(username)
         self.__set_widget_text_by_connection_status(ConnectionStatus.CONNECTED)
 

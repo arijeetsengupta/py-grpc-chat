@@ -32,7 +32,7 @@ class ChatboxFrame(BaseChatFrame):
 
     def __set_up_chatbox_widgets(self):
         self.chat_box = tk.Text(self, height=5)
-        self.chat_box.grid(row=0, column=0, columnspan=3)
+        self.chat_box.grid(row=0, column=0, columnspan=2)
 
     def __set_up_chat_send_btn_widget(self):
         self.send_btn = tk.Button(self,
