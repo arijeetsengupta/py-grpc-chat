@@ -56,24 +56,24 @@ def one_one_chat(username, recipient):
     root = Tk()
     root.title("Chat with " + recipient)
 
-    BG_GRAY = "#ABB2B9"
-    BG_COLOR = "#17202A"
-    TEXT_COLOR = "#EAECEE"
+    BG_GRAY = "#DDE0E2"
+    BG_COLOR = "#FFFFFF"
+    TEXT_COLOR = "#444546"
 
-    FONT = "Helvetica 14"
-    FONT_BOLD = "Helvetica 13 bold"
+    # FONT = "Helvetica 14"
+    # FONT_BOLD = "Helvetica 13 bold"
 
     # Send function
     lable1 = Label(
-        root, bg=BG_COLOR, fg=TEXT_COLOR, text=username+"->"+recipient, font=FONT_BOLD, pady=10, width=20, height=1).grid(
-        row=0)
-    txt = Text(root, bg=BG_COLOR, fg=TEXT_COLOR, font=FONT, width=60)
+        root, bg=BG_COLOR, fg=TEXT_COLOR, text=username+"->"+recipient, pady=10, width=20, height=1).grid(
+        row=0, column=1)
+    txt = Text(root, bg=BG_COLOR, fg=TEXT_COLOR, width=60)
     txt.grid(row=1, column=0, columnspan=2)
     scrollbar = Scrollbar(txt)
     scrollbar.place(relheight=1, relx=0.974)
-    e = Entry(root, bg="#2C3E50", fg=TEXT_COLOR, font=FONT, width=55)
+    e = Entry(root, bg="#FFFFFF", fg=TEXT_COLOR, width=55)
     e.grid(row=2, column=0)
-    btn = Button(root, text="Send", font=FONT_BOLD, bg=BG_GRAY,
+    btn = Button(root, text="Send", bg=BG_GRAY,
                  command=lambda: send(e, txt, username, recipient)).grid(row=2, column=1)
     Thread(target=subscribe_messages, args=(username, recipient, txt,)).start()
     # subscribe_messages(username)
