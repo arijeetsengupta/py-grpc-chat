@@ -50,7 +50,7 @@ class ChatboxFrame(BaseChatFrame):
         grpc_message = self.__construct_message_payload(message)
         self._grpc_client.send_message(grpc_message)
         if self._message_send_callback is not None:
-            self._message_send_callback(message)
+            self._message_send_callback(grpc_message)
 
     def __get_users_message(self):
         return self.chat_box.get(self.__CHAT_MSG_BOX_TEXT_START_INDEX, self.__CHAT_MSG_BOX_TEXT_END_INDEX)
@@ -62,7 +62,8 @@ class ChatboxFrame(BaseChatFrame):
         return chat_pb2.ChatMessage(
             userId=self._grpc_client.user_id,
             username=self._grpc_client.username,
-            message=message
+            message=message,
+            is_broadcast=1
         )
 
     def enable_send_btn(self):
