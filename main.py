@@ -95,6 +95,7 @@ def login_verify():
     username1 = username_verify.get()
     password1 = password_verify.get()
     server_host, server_port = get_server_config_from_file()
+    print(server_host,server_port)
     with grpc.insecure_channel(str(server_host)+':'+str(server_port)) as channel:
         stub = chat_pb2_grpc.ChatStub(channel)
         response = stub.login(chat_pb2.Creds(username=username1, password=password1))
