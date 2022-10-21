@@ -24,6 +24,9 @@ class ChatService(chat_pb2_grpc.ChatServicer):
             "username": request.username,
             "password": request.password
         }
+        for usr_dtls in file_data["users"]:
+            if usr_dtls["username"] == request.username:
+                return chat_pb2.ServerResponse(response="Username already exists")
         file_data["users"].append(new_data)
         with open("users.json", "w") as outfile:
             json.dump(file_data, outfile)
