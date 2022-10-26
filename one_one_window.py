@@ -6,14 +6,12 @@ from threading import Thread
 import src.utils as utils
 
 def subscribe_messages(username, recipient, txt):
-    print("Entered subscribe message thread")
     server_host, server_port = utils.get_server_config_from_json()
     with grpc.insecure_channel(str(server_host) + ':' + str(server_port)) as channel:
         stub = chat_pb2_grpc.ChatStub(channel)
-        responses = stub.subscribeMessages(chat_pb2.ChatUserConnected(userId=username, username=username))
+        responses = stub.subscribeMessages(chat_pb2.ChatUserConnected(username=username))
         for response in responses:
             if not response.is_broadcast and response.recipient == username and response.username == recipient:
-                print("Message received from {}: {}".format(response.username, response.message))
                 send = response.username + " -> " + response.message
                 txt.insert(END, "\n" + send)
 
@@ -24,20 +22,16 @@ def send(e, txt, username, recipient):
     txt.insert(END, "\n" + send)
     user = e.get().lower()
     e.delete(0, END)
-    print("Sending message: " + message)
     server_host, server_port = utils.get_server_config_from_json()
     with grpc.insecure_channel(str(server_host) + ':' + str(server_port)) as channel:
         stub = chat_pb2_grpc.ChatStub(channel)
         response = stub.sendMessage(chat_pb2.ChatMessage(
-            userId=username,
             username=username,
             message=message,
             recipient=recipient,
             is_broadcast=0))
-        print("Registration response : " + response.response)
 
 def one_one_chat(username, recipient):
-    print("Username in one_one_chat: " + username)
     root = Tk()
     root.title("Chat with " + recipient)
 

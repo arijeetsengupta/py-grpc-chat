@@ -1,82 +1,53 @@
-# Python gRPC Chat App
+## gRPC Chat Application:
 
-![Build Status](https://github.com/Ryan95Z/python-grpc-chat-app/workflows/build/badge.svg)
+This is a simple chat application using gRPC framework coded in Python as the deliverable for our Advanced OS course Assignment I.
 
-A Python gRPC chat application using Tkinter.
+This is a standalone application whose UI is created using the Tkinter package in python. All gRPC methods have also been implemented in Python.
 
-## Requirements
+#### Features:
+1. Register new user
+2. Login using credentials
+3. Check list of active users
+4. One-one chat with any active user
+5. (Advanced feature- broadcast) All users can chat with each other on the common chatroom
 
-The following are required to develop or execute the project:
 
-* Python 3
-* PIP (Python package manager)
+#### Setting Up The Environment:
 
-## Setting up the environment
+1. Download and install python (https://www.python.org/downloads/). Ensure to add it to PATH variable during installation.
 
-To set up the environment, ensure the virtualenv package has been installed. This can be added to your Python instance with:
+2. Setting up the virtual environment (optional- to be done only if you want to install the packages in an isolated environment)
 
-```bash
-pip install virtualenv
-```
+    To set up the environment, ensure the virtualenv package has been installed. This can be added to your Python instance with:
+    
+    ```bash
+    pip install virtualenv
+    ```
+    
+    Once virtualenv has been installed. Create the virutal environment for the application:
+    
+    ```bash
+    python -m venv env
+    ```
+    
+    Then activate the virtual environment:
+    
+    ```bash
+    source env/bin/activate
+    ```
+  3. Unzip the source code and open the containing directory from the terminal
+  4. To install dependencies, run:
+  
+      ```bash
+      pip install -r requirements.txt
+        ```
+  5. To start the chat server:
 
-Once virtualenv has been installed. Create the virutal environment for the application:
+        ```bash
+        python server.py
+        ```
 
-```bash
-python -m venv env
-```
-
-Then activate the virtual environment:
-
-```bash
-source env/bin/activate
-```
-
-Finally use the `Makefile` to  install the relevant dependencies for the application:
-
-```bash
-make init
-```
-
-## Running the server
-
-To start the chat server:
-
-```bash
-make server
-```
-
-## Running the chat client
-
-To start the chat client application:
-
-```bash
-make client
-```
-
-**Note**: You can create multiple instances of the client to simulate multiple users
-
-## Compiling the Protocol Buffers
-
-To compile the protocol buffers found in the `protos/` directory, run:
-
-```bash
-make protoc
-```
-
-This will output two Python files called `chat_pb2.py` and `chat_pb2_grpc.py`. These files will be located in the `src/server/` package.
-
-## Unit Tests
-
-To run all the unit tests in the project, use:
-
-```bash
-make tests
-```
-
-## Coding Standards
-
-This project follows the [PEP 8](https://www.python.org/dev/peps/pep-0008/) Python coding standard. In order to validate the code against PEP 8, run the `pycodestyle` tool. This can be executed with:
-
-```bash
-make lint
-```
+  6. Running the chat client (ensure to change server IP address in config.json file before running client):
+        ```bash
+        python client.py
+        ```

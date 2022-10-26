@@ -68,12 +68,10 @@ def login():
 def register_user():
     username_info = username.get()
     password_info = password.get()
-    print("In register user")
     server_host, server_port = utils.get_server_config_from_json()
     with grpc.insecure_channel(str(server_host)+':'+str(server_port)) as channel:
         stub = chat_pb2_grpc.ChatStub(channel)
         response = stub.register(chat_pb2.Creds(username=username_info, password=password_info))
-        print("Registration response : " + response.response)
         if response.response == "Username already exists":
             Label(register_screen, text="Username already exists", fg="red", font=("calibri", 11)).pack()
         else:
@@ -89,7 +87,6 @@ def login_verify():
     channel = grpc.insecure_channel(str(server_host) + ':' + str(server_port))
     stub = chat_pb2_grpc.ChatStub(channel)
     response = stub.login(chat_pb2.Creds(username=username1, password=password1))
-    print("Login response : " + response.response)
     if response.response == "Login successful":
         login_sucess(username1)
     elif response.response == "Incorrect password":

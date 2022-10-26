@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15src/server/chat.proto\"\x1c\n\x08\x43hatUser\x12\x10\n\x08username\x18\x01 \x01(\t\"5\n\x11\x43hatUserConnected\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x10\n\x08username\x18\x02 \x01(\t\"G\n\x0e\x43hatActiveUser\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x13\n\x0b\x63urrentHash\x18\x03 \x01(\t\",\n\x12\x43hatUserDisconnect\x12\x16\n\x0eisDisconnected\x18\x01 \x01(\x08\"i\n\x0b\x43hatMessage\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t\x12\x11\n\trecipient\x18\x04 \x01(\t\x12\x14\n\x0cis_broadcast\x18\x05 \x01(\x05\"+\n\x05\x43reds\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\"\n\x0eServerResponse\x12\x10\n\x08response\x18\x01 \x01(\t2\xd3\x02\n\x04\x43hat\x12(\n\x07\x63onnect\x12\t.ChatUser\x1a\x12.ChatUserConnected\x12\x34\n\ndisconnect\x12\x12.ChatUserConnected\x1a\x12.ChatUserConnected\x12,\n\x0bsendMessage\x12\x0c.ChatMessage\x1a\x0f.ServerResponse\x12\x37\n\x11subscribeMessages\x12\x12.ChatUserConnected\x1a\x0c.ChatMessage0\x01\x12=\n\x14subscribeActiveUsers\x12\x12.ChatUserConnected\x1a\x0f.ChatActiveUser0\x01\x12#\n\x08register\x12\x06.Creds\x1a\x0f.ServerResponse\x12 \n\x05login\x12\x06.Creds\x1a\x0f.ServerResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15src/server/chat.proto\"\x1c\n\x08\x43hatUser\x12\x10\n\x08username\x18\x01 \x01(\t\"%\n\x11\x43hatUserConnected\x12\x10\n\x08username\x18\x01 \x01(\t\"7\n\x0e\x43hatActiveUser\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x13\n\x0b\x63urrentHash\x18\x02 \x01(\t\",\n\x12\x43hatUserDisconnect\x12\x16\n\x0eisDisconnected\x18\x01 \x01(\x08\"Y\n\x0b\x43hatMessage\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x11\n\trecipient\x18\x03 \x01(\t\x12\x14\n\x0cis_broadcast\x18\x04 \x01(\x05\"+\n\x05\x43reds\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\"\n\x0eServerResponse\x12\x10\n\x08response\x18\x01 \x01(\t2\xd3\x02\n\x04\x43hat\x12(\n\x07\x63onnect\x12\t.ChatUser\x1a\x12.ChatUserConnected\x12\x34\n\ndisconnect\x12\x12.ChatUserConnected\x1a\x12.ChatUserConnected\x12,\n\x0bsendMessage\x12\x0c.ChatMessage\x1a\x0f.ServerResponse\x12\x37\n\x11subscribeMessages\x12\x12.ChatUserConnected\x1a\x0c.ChatMessage0\x01\x12=\n\x14subscribeActiveUsers\x12\x12.ChatUserConnected\x1a\x0f.ChatActiveUser0\x01\x12#\n\x08register\x12\x06.Creds\x1a\x0f.ServerResponse\x12 \n\x05login\x12\x06.Creds\x1a\x0f.ServerResponseb\x06proto3')
 
 
 
@@ -81,17 +81,17 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _CHATUSER._serialized_start=25
   _CHATUSER._serialized_end=53
   _CHATUSERCONNECTED._serialized_start=55
-  _CHATUSERCONNECTED._serialized_end=108
-  _CHATACTIVEUSER._serialized_start=110
-  _CHATACTIVEUSER._serialized_end=181
-  _CHATUSERDISCONNECT._serialized_start=183
-  _CHATUSERDISCONNECT._serialized_end=227
-  _CHATMESSAGE._serialized_start=229
-  _CHATMESSAGE._serialized_end=334
-  _CREDS._serialized_start=336
-  _CREDS._serialized_end=379
-  _SERVERRESPONSE._serialized_start=381
-  _SERVERRESPONSE._serialized_end=415
-  _CHAT._serialized_start=418
-  _CHAT._serialized_end=757
+  _CHATUSERCONNECTED._serialized_end=92
+  _CHATACTIVEUSER._serialized_start=94
+  _CHATACTIVEUSER._serialized_end=149
+  _CHATUSERDISCONNECT._serialized_start=151
+  _CHATUSERDISCONNECT._serialized_end=195
+  _CHATMESSAGE._serialized_start=197
+  _CHATMESSAGE._serialized_end=286
+  _CREDS._serialized_start=288
+  _CREDS._serialized_end=331
+  _SERVERRESPONSE._serialized_start=333
+  _SERVERRESPONSE._serialized_end=367
+  _CHAT._serialized_start=370
+  _CHAT._serialized_end=709
 # @@protoc_insertion_point(module_scope)

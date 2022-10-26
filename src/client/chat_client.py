@@ -23,11 +23,11 @@ class ChatClient:
             return None
         return self.__user.username
 
-    @property
-    def user_id(self):
-        if not self.__is_connected:
-            return -1
-        return self.__user.userId
+    # @property
+    # def user_id(self):
+    #     if not self.__is_connected:
+    #         return -1
+    #     return self.__user.userId
 
     def connect(self, username):
         response = self.__stub.connect(chat_pb2.ChatUser(username=username))

@@ -50,7 +50,6 @@ class ChatboxFrame(BaseChatFrame):
 
     def __construct_message_payload(self, message):
         return chat_pb2.ChatMessage(
-            userId=self._grpc_client.user_id,
             username=self._grpc_client.username,
             message=message,
             is_broadcast=1

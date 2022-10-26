@@ -15,14 +15,14 @@ message ChatUser {
 }
 
 message ChatUserConnected {
-    string userId = 1;
-    string username = 2;
+    //string userId = 1;
+    string username = 1;
 }
 
 message ChatActiveUser {
-    string userId = 1;
-    string username = 2;
-    string currentHash = 3;
+    //string userId = 1;
+    string username = 1;
+    string currentHash = 2;
 }
 
 message ChatUserDisconnect {
@@ -30,11 +30,11 @@ message ChatUserDisconnect {
 }
 
 message ChatMessage {
-    string userId = 1;
-    string username = 2;
-    string message = 3;
-    string recipient = 4;
-    int32 is_broadcast = 5;
+    //string userId = 1;
+    string username = 1;
+    string message = 2;
+    string recipient = 3;
+    int32 is_broadcast = 4;
 }
 
 message Creds {

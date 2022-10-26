@@ -15,7 +15,6 @@ class ChatService(chat_pb2_grpc.ChatServicer):
         self.stop_connection = False
 
     def register(self, request, context):
-        print("server- in register user")
         filename = "users.json"
         with open(filename, 'r+') as file:
             file_data = json.load(file)
@@ -37,7 +36,6 @@ class ChatService(chat_pb2_grpc.ChatServicer):
         with open('users.json') as json_file:
             data = json.load(json_file)["users"]
             for entry in data:
-                # print(entry)
                 if entry["username"] == user_id and entry["password"] != password:
                     return chat_pb2.ServerResponse(response="Incorrect password")
                 elif entry["username"] == user_id and entry["password"] == password:
@@ -47,41 +45,40 @@ class ChatService(chat_pb2_grpc.ChatServicer):
     def connect(self, request, context):
         user_id = request.username
         self.users[user_id] = request.username
-        return chat_pb2.ChatUserConnected(username=request.username, userId=user_id)
+        return chat_pb2.ChatUserConnected(username=request.username)
 
     def disconnect(self, request, context):
-        del self.users[request.userId]
+        del self.users[request.username]
         return chat_pb2.ChatUserDisconnect(isDisconnected=True)
 
     def sendMessage(self, request, context):
         self.chats.append(request)
         return chat_pb2.ServerResponse(
             response="Server recieved message [{}] from [{}] to [{}]".format(
-                request.message, request.userId, request.recipient))
+                request.message, request.username, request.recipient))
 
     def subscribeMessages(self, request, context):
-        current_user_id = request.userId
+        current_user_name = request.username
         last_seen_message_index = 0
-        while not self.stop_connection and self.__is_user_still_connected(current_user_id):
+        while not self.stop_connection and self.__is_user_still_connected(current_user_name):
             while len(self.chats) > last_seen_message_index:
                 message = self.chats[last_seen_message_index]
                 last_seen_message_index += 1
-                if message.userId != current_user_id:
+                if message.username != current_user_name:
                     yield message
 
-    def __is_user_still_connected(self, user_id):
-        return self.users.get(user_id, None) is not None
+    def __is_user_still_connected(self, user_name):
+        return self.users.get(user_name, None) is not None
 
     def subscribeActiveUsers(self, request, context):
         current_hash = ""
-        current_user_id = request.userId
-        while not self.stop_connection and self.__is_user_still_connected(current_user_id):
+        current_user_name = request.username
+        while not self.stop_connection and self.__is_user_still_connected(current_user_name):
             json_users = json.dumps(self.users)
             md5_hash = md5(bytes(json_users, 'utf-8')).hexdigest()
             if current_hash != md5_hash:
                 current_hash = md5_hash
                 for user_id, username in self.users.items():
-                    if user_id != current_user_id:
+                    if user_id != current_user_name:
                         yield chat_pb2.ChatActiveUser(username=username,
-                                                      userId=user_id,
                                                       currentHash=current_hash)
