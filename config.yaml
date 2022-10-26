@@ -1,4 +1,0 @@
-server:
-  #host: 172.17.87.108
-  host: localhost
-  port: 50051

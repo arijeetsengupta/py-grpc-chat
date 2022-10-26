@@ -3,28 +3,15 @@ import src.server.chat_pb2 as chat_pb2
 import src.server.chat_pb2_grpc as chat_pb2_grpc
 import grpc
 from threading import Thread
-# import ChatClient
 import src.utils as utils
-
-# GUI
-
-YAML_CONFIG_PATH = 'config.yaml'
-
-
-def get_server_config_from_file():
-    YAML_CONFIG_PATH = 'config.yaml'
-    yaml_config = utils.read_yaml_config(YAML_CONFIG_PATH)
-    return utils.get_server_config_from_yaml(yaml_config)
-
 
 def subscribe_messages(username, recipient, txt):
     print("Entered subscribe message thread")
-    server_host, server_port = get_server_config_from_file()
+    server_host, server_port = utils.get_server_config_from_json()
     with grpc.insecure_channel(str(server_host) + ':' + str(server_port)) as channel:
         stub = chat_pb2_grpc.ChatStub(channel)
         responses = stub.subscribeMessages(chat_pb2.ChatUserConnected(userId=username, username=username))
         for response in responses:
-            # print("response: "+response)
             if not response.is_broadcast and response.recipient == username and response.username == recipient:
                 print("Message received from {}: {}".format(response.username, response.message))
                 send = response.username + " -> " + response.message
@@ -38,7 +25,7 @@ def send(e, txt, username, recipient):
     user = e.get().lower()
     e.delete(0, END)
     print("Sending message: " + message)
-    server_host, server_port = get_server_config_from_file()
+    server_host, server_port = utils.get_server_config_from_json()
     with grpc.insecure_channel(str(server_host) + ':' + str(server_port)) as channel:
         stub = chat_pb2_grpc.ChatStub(channel)
         response = stub.sendMessage(chat_pb2.ChatMessage(
@@ -49,8 +36,6 @@ def send(e, txt, username, recipient):
             is_broadcast=0))
         print("Registration response : " + response.response)
 
-
-# class One_one(ChatClient):
 def one_one_chat(username, recipient):
     print("Username in one_one_chat: " + username)
     root = Tk()
@@ -59,9 +44,6 @@ def one_one_chat(username, recipient):
     BG_GRAY = "#DDE0E2"
     BG_COLOR = "#FFFFFF"
     TEXT_COLOR = "#444546"
-
-    # FONT = "Helvetica 14"
-    # FONT_BOLD = "Helvetica 13 bold"
 
     # Send function
     lable1 = Label(
@@ -76,6 +58,5 @@ def one_one_chat(username, recipient):
     btn = Button(root, text="Send", bg=BG_GRAY,
                  command=lambda: send(e, txt, username, recipient)).grid(row=2, column=1)
     Thread(target=subscribe_messages, args=(username, recipient, txt,)).start()
-    # subscribe_messages(username)
 
     root.mainloop()

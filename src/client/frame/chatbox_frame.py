@@ -4,8 +4,6 @@ from src.client.frame.base import BaseChatFrame
 
 
 class ChatboxFrame(BaseChatFrame):
-    """Frame to accept a user's message and send to the chat server when send button is clicked"""
-
     __SEND_BUTTON_HEIGHT = 5
     __SEND_BUTTON_WIDTH = 20
     __SEND_BUTTON_TXT = 'Send'
@@ -14,14 +12,6 @@ class ChatboxFrame(BaseChatFrame):
     __CHAT_MSG_BOX_TEXT_END_INDEX = 'end-1c'
 
     def __init__(self, master, grpc_client, message_send_callback=None):
-        """ChatboxFrame constructor
-
-        Args:
-            master:                 The parent tk component. Either a frame or tkinter Tk.
-            grpc_client:            The grpc client wrapper to communicate with the server.
-            message_send_callback:  Callback function that is triggered once a message is
-                                    is sent to the server.
-        """
         super(ChatboxFrame, self).__init__(master, grpc_client)
         self._message_send_callback = message_send_callback
         self.__set_up_widgets()
