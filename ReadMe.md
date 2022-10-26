@@ -51,3 +51,4 @@ This is a standalone application whose UI is created using the Tkinter package i
         ```bash
         python client.py
         ```
+Reference: https://github.com/ryan95f/python-grpc-chat-app 
