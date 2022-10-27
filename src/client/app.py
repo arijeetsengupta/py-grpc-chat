@@ -77,5 +77,6 @@ class ChatApp(tk.Tk):
         self.__active_user_frame.clear_active_user_list()
 
     def __message_send_callback(self, msg):
-        if msg.is_broadcast:
-            self.__chat_message_frame.add_message(self.__client.username, msg.message)
+        pass
+        # if msg.is_broadcast:
+        #     self.__chat_message_frame.add_message(self.__client.username, msg.message)

@@ -64,8 +64,8 @@ class ChatService(chat_pb2_grpc.ChatServicer):
             while len(self.chats) > last_seen_message_index:
                 message = self.chats[last_seen_message_index]
                 last_seen_message_index += 1
-                if message.username != current_user_name:
-                    yield message
+                # if message.username != current_user_name:
+                yield message
 
     def __is_user_still_connected(self, user_name):
         return self.users.get(user_name, None) is not None
