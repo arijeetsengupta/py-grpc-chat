@@ -49,6 +49,6 @@ This is a standalone application whose UI is created using the Tkinter package i
 
   6. Running the chat client (ensure to change server IP address in config.json file before running client):
         ```bash
-        python client.py
+        python main.py
         ```
 Reference: https://github.com/ryan95f/python-grpc-chat-app 
