@@ -5,21 +5,25 @@ import grpc
 from threading import Thread
 import src.utils as utils
 
+
 def subscribe_messages(username, recipient, txt):
     server_host, server_port = utils.get_server_config_from_json()
     with grpc.insecure_channel(str(server_host) + ':' + str(server_port)) as channel:
         stub = chat_pb2_grpc.ChatStub(channel)
         responses = stub.subscribeMessages(chat_pb2.ChatUserConnected(username=username))
         for response in responses:
-            if not response.is_broadcast and response.recipient == username and response.username == recipient:
+            if not response.is_broadcast and ((
+                    response.recipient == username and response.username == recipient) or (
+                    response.recipient == recipient and response.username == username)
+            ):
                 send = response.username + " -> " + response.message
                 txt.insert(END, "\n" + send)
 
 
 def send(e, txt, username, recipient):
     message = e.get()
-    send = "You -> " + message
-    txt.insert(END, "\n" + send)
+    # send = "You -> " + message
+    # txt.insert(END, "\n" + send)
     user = e.get().lower()
     e.delete(0, END)
     server_host, server_port = utils.get_server_config_from_json()
@@ -30,6 +34,7 @@ def send(e, txt, username, recipient):
             message=message,
             recipient=recipient,
             is_broadcast=0))
+
 
 def one_one_chat(username, recipient):
     root = Tk()

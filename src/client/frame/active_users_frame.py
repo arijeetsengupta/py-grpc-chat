@@ -33,7 +33,6 @@ class ActiveUsersFrame(tk.Frame):
             # get selected items
             recipient = ",".join([self.__active_users_list.get(i) for i in selected_indices])
             msg = f'You selected: {recipient}'
-            print(self.username)
             one_one_chat(self.username, recipient)
             # showinfo(title='Information', message=msg)
 
