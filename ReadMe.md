@@ -41,14 +41,8 @@ This is a standalone application whose UI is created using the Tkinter package i
       ```bash
       pip install -r requirements.txt
         ```
-  5. To start the chat server:
+  5. To start the chat server run **_server.exe_**
 
-        ```bash
-        python server.py
-        ```
-
-  6. Running the chat client (ensure to change server IP address in config.json file before running client):
-        ```bash
-        python main.py
-        ```
+  6. To start the chat client run **_main.exe_** (ensure to change server IP address in config.json file before running client)
+    
 Reference: https://github.com/ryan95f/python-grpc-chat-app 
