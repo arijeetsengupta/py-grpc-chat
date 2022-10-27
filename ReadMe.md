@@ -16,33 +16,11 @@ This is a standalone application whose UI is created using the Tkinter package i
 
 1. Download and install python (https://www.python.org/downloads/). Ensure to add it to PATH variable during installation.
 
-2. Setting up the virtual environment (optional- to be done only if you want to install the packages in an isolated environment)
+#### Running the application:
 
-    To set up the environment, ensure the virtualenv package has been installed. This can be added to your Python instance with:
-    
-    ```bash
-    pip install virtualenv
-    ```
-    
-    Once virtualenv has been installed. Create the virutal environment for the application:
-    
-    ```bash
-    python -m venv env
-    ```
-    
-    Then activate the virtual environment:
-    
-    ```bash
-    source env/bin/activate
-    ```
-  3. Unzip the source code and open the containing directory from the terminal
-  4. To install dependencies, run:
-  
-      ```bash
-      pip install -r requirements.txt
-        ```
-  5. To start the chat server run **_server.exe_**
-
-  6. To start the chat client run **_main.exe_** (ensure to change server IP address in config.json file before running client)
+1. Unzip the server/client .zip file
+2. Ensure to change server IP address in config.json file before running server/client
+3. To start the chat server, run the **_server.exe_** file in py-grpc-chat-server directory
+4. To start the chat client, run **_main.exe_** file in py-grpc-chat-client directory
     
 Reference: https://github.com/ryan95f/python-grpc-chat-app 
