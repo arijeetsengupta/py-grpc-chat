@@ -7,30 +7,6 @@ from threading import Thread
 import logging
 
 
-# MOVED TO CREATE_GROUP_MODULE
-# def get_all_users():
-#     server_host, server_port = utils.get_server_config_from_json()
-#     with grpc.insecure_channel(str(server_host)+':'+str(server_port)) as channel:
-#         stub = chat_pb2_grpc.ChatStub(channel)
-#         response = stub.getAllUsers(chat_pb2.Empty())
-#     users = response.response.split(',')
-#     # print(users)
-#     for user in users:
-#         print(user)
-
-
-# MOVED TO CREATE_GROUP_MODULE
-# def create_group(username, group_name, group_members):
-#     server_host, server_port = utils.get_server_config_from_json()
-#     group_members = ','.join(group_members)
-#     with grpc.insecure_channel(str(server_host) + ':' + str(server_port)) as channel:
-#         stub = chat_pb2_grpc.ChatStub(channel)
-#         response = stub.createGroup(chat_pb2.CreateGroupRequest(username=username,
-#                                                                 group_name=group_name,
-#                                                                 group_members=group_members))
-#     logging.info("Group creation response from server: {}".format(response.response))
-
-
 def subscribe_messages(username, group_name, txt):
     server_host, server_port = utils.get_server_config_from_json()
     with grpc.insecure_channel(str(server_host) + ':' + str(server_port)) as channel:
@@ -40,7 +16,7 @@ def subscribe_messages(username, group_name, txt):
             if response.is_group_chat_msg and response.group_name == group_name:
                 send = response.username + " -> " + response.message
                 txt.insert(END, "\n" + send)
-                logging.info("Received message {} in group {} from {}".format(
+                print("Received message {} in group {} from {}".format(
                     response.message, response.group_name,response.username))
 
 
@@ -57,10 +33,10 @@ def send(e, txt, username, group_name):
             is_broadcast=False,
             is_group_chat_msg=True,
             group_name=group_name))
-    logging.info("{} sent message [{}] to group {} ".format(username, message, group_name))
+    print("{} sent message [{}] to group {} ".format(username, message, group_name))
 
 
-def group_chat(username, group_name):
+def group_chat_window(username, group_name):
     logging.info("Entered flow for group chat.")
     root = Tk()
     root.title("Group chat: " + group_name)

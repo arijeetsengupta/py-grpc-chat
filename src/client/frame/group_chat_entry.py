@@ -10,8 +10,6 @@ from src.client.frame.group_chat import display_groups
 
 
 def group_chat_module(username):
-    def write_text():
-        print("Tkinter is easy to create GUI!")
 
     parent = tk.Tk()
     frame = tk.Frame(parent)
@@ -25,9 +23,8 @@ def group_chat_module(username):
     text_disp.pack(side=tk.LEFT)
 
     exit_button = tk.Button(frame,
-                            text="Exit",
-                            fg="green",
-                            command=quit)
+                            text="Join Group",
+                            command=lambda: display_groups(username))
     exit_button.pack(side=tk.RIGHT)
 
     parent.mainloop()

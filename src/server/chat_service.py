@@ -54,6 +54,8 @@ class ChatService(chat_pb2_grpc.ChatServicer):
 
     def sendMessage(self, request, context):
         self.chats.append(request)
+        print("Server recieved message [{}] from [{}] to [{}]".format(
+                request.message, request.username, request.recipient))
         return chat_pb2.ServerResponse(
             response="Server recieved message [{}] from [{}] to [{}]".format(
                 request.message, request.username, request.recipient))
@@ -61,12 +63,12 @@ class ChatService(chat_pb2_grpc.ChatServicer):
     def subscribeMessages(self, request, context):
         current_user_name = request.username
         last_seen_message_index = 0
-        while not self.stop_connection and self.__is_user_still_connected(current_user_name):
-            while len(self.chats) > last_seen_message_index:
-                message = self.chats[last_seen_message_index]
-                last_seen_message_index += 1
-                # if message.username != current_user_name:
-                yield message
+        # while not self.stop_connection and self.__is_user_still_connected(current_user_name):
+        while len(self.chats) > last_seen_message_index:
+            message = self.chats[last_seen_message_index]
+            last_seen_message_index += 1
+            # if message.username != current_user_name:
+            yield message
 
     def __is_user_still_connected(self, user_name):
         return self.users.get(user_name, None) is not None
