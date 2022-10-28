@@ -52,7 +52,7 @@ class ChatboxFrame(BaseChatFrame):
         return chat_pb2.ChatMessage(
             username=self._grpc_client.username,
             message=message,
-            is_broadcast=1
+            is_broadcast=True
         )
 
     def enable_send_btn(self):

@@ -49,6 +49,21 @@ class ChatStub(object):
                 request_serializer=src_dot_server_dot_chat__pb2.Creds.SerializeToString,
                 response_deserializer=src_dot_server_dot_chat__pb2.ServerResponse.FromString,
                 )
+        self.getAllUsers = channel.unary_unary(
+                '/Chat/getAllUsers',
+                request_serializer=src_dot_server_dot_chat__pb2.Empty.SerializeToString,
+                response_deserializer=src_dot_server_dot_chat__pb2.ServerResponse.FromString,
+                )
+        self.createGroup = channel.unary_unary(
+                '/Chat/createGroup',
+                request_serializer=src_dot_server_dot_chat__pb2.CreateGroupRequest.SerializeToString,
+                response_deserializer=src_dot_server_dot_chat__pb2.ServerResponse.FromString,
+                )
+        self.displayMemberGroups = channel.unary_unary(
+                '/Chat/displayMemberGroups',
+                request_serializer=src_dot_server_dot_chat__pb2.ChatUser.SerializeToString,
+                response_deserializer=src_dot_server_dot_chat__pb2.ServerResponse.FromString,
+                )
 
 
 class ChatServicer(object):
@@ -96,6 +111,24 @@ class ChatServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def getAllUsers(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def createGroup(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def displayMemberGroups(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ChatServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -132,6 +165,21 @@ def add_ChatServicer_to_server(servicer, server):
             'login': grpc.unary_unary_rpc_method_handler(
                     servicer.login,
                     request_deserializer=src_dot_server_dot_chat__pb2.Creds.FromString,
+                    response_serializer=src_dot_server_dot_chat__pb2.ServerResponse.SerializeToString,
+            ),
+            'getAllUsers': grpc.unary_unary_rpc_method_handler(
+                    servicer.getAllUsers,
+                    request_deserializer=src_dot_server_dot_chat__pb2.Empty.FromString,
+                    response_serializer=src_dot_server_dot_chat__pb2.ServerResponse.SerializeToString,
+            ),
+            'createGroup': grpc.unary_unary_rpc_method_handler(
+                    servicer.createGroup,
+                    request_deserializer=src_dot_server_dot_chat__pb2.CreateGroupRequest.FromString,
+                    response_serializer=src_dot_server_dot_chat__pb2.ServerResponse.SerializeToString,
+            ),
+            'displayMemberGroups': grpc.unary_unary_rpc_method_handler(
+                    servicer.displayMemberGroups,
+                    request_deserializer=src_dot_server_dot_chat__pb2.ChatUser.FromString,
                     response_serializer=src_dot_server_dot_chat__pb2.ServerResponse.SerializeToString,
             ),
     }
@@ -259,6 +307,57 @@ class Chat(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Chat/login',
             src_dot_server_dot_chat__pb2.Creds.SerializeToString,
+            src_dot_server_dot_chat__pb2.ServerResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def getAllUsers(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Chat/getAllUsers',
+            src_dot_server_dot_chat__pb2.Empty.SerializeToString,
+            src_dot_server_dot_chat__pb2.ServerResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def createGroup(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Chat/createGroup',
+            src_dot_server_dot_chat__pb2.CreateGroupRequest.SerializeToString,
+            src_dot_server_dot_chat__pb2.ServerResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def displayMemberGroups(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Chat/displayMemberGroups',
+            src_dot_server_dot_chat__pb2.ChatUser.SerializeToString,
             src_dot_server_dot_chat__pb2.ServerResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
