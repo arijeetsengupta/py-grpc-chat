@@ -26,7 +26,6 @@ message ChatUser {
 }
 
 message ChatUserConnected {
-    //string userId = 1;
     string username = 1;
 }
 

@@ -4,6 +4,7 @@ import src.server.chat_pb2 as chat_pb2
 import src.server.chat_pb2_grpc as chat_pb2_grpc
 from tkinter import *
 from threading import Thread
+import logging
 
 
 def get_all_users():
@@ -25,7 +26,7 @@ def create_group(username, group_name, group_members):
         response = stub.createGroup(chat_pb2.CreateGroupRequest(username=username,
                                                                 group_name=group_name,
                                                                 group_members=group_members))
-    print(response.response)
+    logging.info("Group creation response from server: {}".format(response.response))
 
 
 def subscribe_messages(username, group_name, txt):
@@ -37,6 +38,8 @@ def subscribe_messages(username, group_name, txt):
             if response.is_group_chat_msg and response.group_name == group_name:
                 send = response.username + " -> " + response.message
                 txt.insert(END, "\n" + send)
+                logging.info("Received message {} in group {} from {}".format(
+                    response.message, response.group_name,response.username))
 
 
 def send(e, txt, username, group_name):
@@ -52,9 +55,11 @@ def send(e, txt, username, group_name):
             is_broadcast=False,
             is_group_chat_msg=True,
             group_name=group_name))
+    logging.info("{} sent message [{}] to group {} ".format(username, message, group_name))
 
 
 def group_chat(username, group_name):
+    logging.info("Entered flow for group chat.")
     root = Tk()
     root.title("Group chat: " + group_name)
 
@@ -64,7 +69,7 @@ def group_chat(username, group_name):
 
     # Send function
     lable1 = Label(
-        root, bg=BG_COLOR, fg=TEXT_COLOR, text=username+"->"+recipient, pady=10, width=20, height=1).grid(
+        root, bg=BG_COLOR, fg=TEXT_COLOR, text=username+"->"+group_name, pady=10, width=20, height=1).grid(
         row=0, column=1)
     txt = Text(root, bg=BG_COLOR, fg=TEXT_COLOR, width=60)
     txt.grid(row=1, column=0, columnspan=2)
