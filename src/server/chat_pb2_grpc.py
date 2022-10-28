@@ -59,8 +59,8 @@ class ChatStub(object):
                 request_serializer=src_dot_server_dot_chat__pb2.CreateGroupRequest.SerializeToString,
                 response_deserializer=src_dot_server_dot_chat__pb2.ServerResponse.FromString,
                 )
-        self.displayMemberGroups = channel.unary_unary(
-                '/Chat/displayMemberGroups',
+        self.getMemberGroups = channel.unary_unary(
+                '/Chat/getMemberGroups',
                 request_serializer=src_dot_server_dot_chat__pb2.ChatUser.SerializeToString,
                 response_deserializer=src_dot_server_dot_chat__pb2.ServerResponse.FromString,
                 )
@@ -123,7 +123,7 @@ class ChatServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def displayMemberGroups(self, request, context):
+    def getMemberGroups(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -177,8 +177,8 @@ def add_ChatServicer_to_server(servicer, server):
                     request_deserializer=src_dot_server_dot_chat__pb2.CreateGroupRequest.FromString,
                     response_serializer=src_dot_server_dot_chat__pb2.ServerResponse.SerializeToString,
             ),
-            'displayMemberGroups': grpc.unary_unary_rpc_method_handler(
-                    servicer.displayMemberGroups,
+            'getMemberGroups': grpc.unary_unary_rpc_method_handler(
+                    servicer.getMemberGroups,
                     request_deserializer=src_dot_server_dot_chat__pb2.ChatUser.FromString,
                     response_serializer=src_dot_server_dot_chat__pb2.ServerResponse.SerializeToString,
             ),
@@ -346,7 +346,7 @@ class Chat(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def displayMemberGroups(request,
+    def getMemberGroups(request,
             target,
             options=(),
             channel_credentials=None,
@@ -356,7 +356,7 @@ class Chat(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Chat/displayMemberGroups',
+        return grpc.experimental.unary_unary(request, target, '/Chat/getMemberGroups',
             src_dot_server_dot_chat__pb2.ChatUser.SerializeToString,
             src_dot_server_dot_chat__pb2.ServerResponse.FromString,
             options, channel_credentials,

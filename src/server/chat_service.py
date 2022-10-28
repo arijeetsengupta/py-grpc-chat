@@ -90,7 +90,7 @@ class ChatService(chat_pb2_grpc.ChatServicer):
             data = json.load(json_file)["users"]
             for entry in data:
                 users_string += entry["username"] + ','
-        return chat_pb2.ServerResponse(response=users_string)
+        return chat_pb2.ServerResponse(response=users_string[:-1])
 
     def createGroup(self, request, context):
         group_members = request.group_members.split(',')
@@ -100,13 +100,13 @@ class ChatService(chat_pb2_grpc.ChatServicer):
                 if request.group_name in entry["groups"]:
                     return chat_pb2.ServerResponse(response="Group already exists!")
             for entry in data["users"]:
-                if entry["username"] == request.username or entry["username"] in group_members:
+                if entry["username"] in group_members:
                     entry["groups"].append(request.group_name)
         with open("users.json", "w") as outfile:
             json.dump(data, outfile)
         return chat_pb2.ServerResponse(response="Group created successfully")
 
-    def displayMemberGroups(self, request, context):
+    def getMemberGroups(self, request, context):
         username = request.username
         member_groups = ""
         with open('users.json') as json_file:

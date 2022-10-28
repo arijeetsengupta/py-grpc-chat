@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15src/server/chat.proto\"Q\n\x12\x43reateGroupRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x12\n\ngroup_name\x18\x02 \x01(\t\x12\x15\n\rgroup_members\x18\x03 \x01(\t\"\x07\n\x05\x45mpty\"\x1c\n\x08\x43hatUser\x12\x10\n\x08username\x18\x01 \x01(\t\"%\n\x11\x43hatUserConnected\x12\x10\n\x08username\x18\x01 \x01(\t\"7\n\x0e\x43hatActiveUser\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x13\n\x0b\x63urrentHash\x18\x02 \x01(\t\",\n\x12\x43hatUserDisconnect\x12\x16\n\x0eisDisconnected\x18\x01 \x01(\x08\"Y\n\x0b\x43hatMessage\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x11\n\trecipient\x18\x03 \x01(\t\x12\x14\n\x0cis_broadcast\x18\x04 \x01(\x05\"+\n\x05\x43reds\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\"\n\x0eServerResponse\x12\x10\n\x08response\x18\x01 \x01(\t2\xe3\x03\n\x04\x43hat\x12(\n\x07\x63onnect\x12\t.ChatUser\x1a\x12.ChatUserConnected\x12\x34\n\ndisconnect\x12\x12.ChatUserConnected\x1a\x12.ChatUserConnected\x12,\n\x0bsendMessage\x12\x0c.ChatMessage\x1a\x0f.ServerResponse\x12\x37\n\x11subscribeMessages\x12\x12.ChatUserConnected\x1a\x0c.ChatMessage0\x01\x12=\n\x14subscribeActiveUsers\x12\x12.ChatUserConnected\x1a\x0f.ChatActiveUser0\x01\x12#\n\x08register\x12\x06.Creds\x1a\x0f.ServerResponse\x12 \n\x05login\x12\x06.Creds\x1a\x0f.ServerResponse\x12&\n\x0bgetAllUsers\x12\x06.Empty\x1a\x0f.ServerResponse\x12\x33\n\x0b\x63reateGroup\x12\x13.CreateGroupRequest\x1a\x0f.ServerResponse\x12\x31\n\x13\x64isplayMemberGroups\x12\t.ChatUser\x1a\x0f.ServerResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15src/server/chat.proto\"Q\n\x12\x43reateGroupRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x12\n\ngroup_name\x18\x02 \x01(\t\x12\x15\n\rgroup_members\x18\x03 \x01(\t\"\x07\n\x05\x45mpty\"\x1c\n\x08\x43hatUser\x12\x10\n\x08username\x18\x01 \x01(\t\"%\n\x11\x43hatUserConnected\x12\x10\n\x08username\x18\x01 \x01(\t\"7\n\x0e\x43hatActiveUser\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x13\n\x0b\x63urrentHash\x18\x02 \x01(\t\",\n\x12\x43hatUserDisconnect\x12\x16\n\x0eisDisconnected\x18\x01 \x01(\x08\"\x88\x01\n\x0b\x43hatMessage\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x11\n\trecipient\x18\x03 \x01(\t\x12\x14\n\x0cis_broadcast\x18\x04 \x01(\x08\x12\x19\n\x11is_group_chat_msg\x18\x05 \x01(\x08\x12\x12\n\ngroup_name\x18\x06 \x01(\t\"+\n\x05\x43reds\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\"\n\x0eServerResponse\x12\x10\n\x08response\x18\x01 \x01(\t2\xdf\x03\n\x04\x43hat\x12(\n\x07\x63onnect\x12\t.ChatUser\x1a\x12.ChatUserConnected\x12\x34\n\ndisconnect\x12\x12.ChatUserConnected\x1a\x12.ChatUserConnected\x12,\n\x0bsendMessage\x12\x0c.ChatMessage\x1a\x0f.ServerResponse\x12\x37\n\x11subscribeMessages\x12\x12.ChatUserConnected\x1a\x0c.ChatMessage0\x01\x12=\n\x14subscribeActiveUsers\x12\x12.ChatUserConnected\x1a\x0f.ChatActiveUser0\x01\x12#\n\x08register\x12\x06.Creds\x1a\x0f.ServerResponse\x12 \n\x05login\x12\x06.Creds\x1a\x0f.ServerResponse\x12&\n\x0bgetAllUsers\x12\x06.Empty\x1a\x0f.ServerResponse\x12\x33\n\x0b\x63reateGroup\x12\x13.CreateGroupRequest\x1a\x0f.ServerResponse\x12-\n\x0fgetMemberGroups\x12\t.ChatUser\x1a\x0f.ServerResponseb\x06proto3')
 
 
 
@@ -106,12 +106,12 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _CHATACTIVEUSER._serialized_end=241
   _CHATUSERDISCONNECT._serialized_start=243
   _CHATUSERDISCONNECT._serialized_end=287
-  _CHATMESSAGE._serialized_start=289
-  _CHATMESSAGE._serialized_end=378
-  _CREDS._serialized_start=380
-  _CREDS._serialized_end=423
-  _SERVERRESPONSE._serialized_start=425
-  _SERVERRESPONSE._serialized_end=459
-  _CHAT._serialized_start=462
-  _CHAT._serialized_end=945
+  _CHATMESSAGE._serialized_start=290
+  _CHATMESSAGE._serialized_end=426
+  _CREDS._serialized_start=428
+  _CREDS._serialized_end=471
+  _SERVERRESPONSE._serialized_start=473
+  _SERVERRESPONSE._serialized_end=507
+  _CHAT._serialized_start=510
+  _CHAT._serialized_end=989
 # @@protoc_insertion_point(module_scope)

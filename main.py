@@ -3,7 +3,7 @@ import src.server.chat_pb2 as chat_pb2
 import src.server.chat_pb2_grpc as chat_pb2_grpc
 import grpc
 import src.utils as utils
-from group_chat_window import get_all_users, create_group
+# from group_chat_window import get_all_users, create_group
 
 from tkinter import *
 
@@ -134,8 +134,8 @@ def delete_login_success(username1):
     login_success_screen.destroy()
     main_screen.destroy()
 
-    get_all_users()
-    create_group(username1, "my_group", ["sengupta", "mahapatra"])
+    # get_all_users()
+    # create_group(username1, "my_group", ["sengupta", "mahapatra"])
 
     application = client.ChatApp(username1)
     application.mainloop()

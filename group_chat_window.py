@@ -7,26 +7,28 @@ from threading import Thread
 import logging
 
 
-def get_all_users():
-    server_host, server_port = utils.get_server_config_from_json()
-    with grpc.insecure_channel(str(server_host)+':'+str(server_port)) as channel:
-        stub = chat_pb2_grpc.ChatStub(channel)
-        response = stub.getAllUsers(chat_pb2.Empty())
-    users = response.response.split(',')
-    # print(users)
-    for user in users:
-        print(user)
+# MOVED TO CREATE_GROUP_MODULE
+# def get_all_users():
+#     server_host, server_port = utils.get_server_config_from_json()
+#     with grpc.insecure_channel(str(server_host)+':'+str(server_port)) as channel:
+#         stub = chat_pb2_grpc.ChatStub(channel)
+#         response = stub.getAllUsers(chat_pb2.Empty())
+#     users = response.response.split(',')
+#     # print(users)
+#     for user in users:
+#         print(user)
 
 
-def create_group(username, group_name, group_members):
-    server_host, server_port = utils.get_server_config_from_json()
-    group_members = ','.join(group_members)
-    with grpc.insecure_channel(str(server_host) + ':' + str(server_port)) as channel:
-        stub = chat_pb2_grpc.ChatStub(channel)
-        response = stub.createGroup(chat_pb2.CreateGroupRequest(username=username,
-                                                                group_name=group_name,
-                                                                group_members=group_members))
-    logging.info("Group creation response from server: {}".format(response.response))
+# MOVED TO CREATE_GROUP_MODULE
+# def create_group(username, group_name, group_members):
+#     server_host, server_port = utils.get_server_config_from_json()
+#     group_members = ','.join(group_members)
+#     with grpc.insecure_channel(str(server_host) + ':' + str(server_port)) as channel:
+#         stub = chat_pb2_grpc.ChatStub(channel)
+#         response = stub.createGroup(chat_pb2.CreateGroupRequest(username=username,
+#                                                                 group_name=group_name,
+#                                                                 group_members=group_members))
+#     logging.info("Group creation response from server: {}".format(response.response))
 
 
 def subscribe_messages(username, group_name, txt):

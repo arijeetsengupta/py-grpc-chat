@@ -10,7 +10,7 @@ service Chat {
     rpc login(Creds) returns (ServerResponse);
     rpc getAllUsers(Empty) returns (ServerResponse);
     rpc createGroup(CreateGroupRequest) returns (ServerResponse);
-    rpc displayMemberGroups(ChatUser) returns (ServerResponse);
+    rpc getMemberGroups(ChatUser) returns (ServerResponse);
 }
 
 message CreateGroupRequest{
