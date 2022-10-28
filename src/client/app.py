@@ -1,8 +1,10 @@
+from email.mime import application
 import tkinter as tk
 from threading import Thread
 import src.client.chat_client as client
 
 import src.client.frame as frame
+from src.client.frame.group_chat import group_chat_module
 
 class ChatApp(tk.Tk):
 
@@ -16,6 +18,7 @@ class ChatApp(tk.Tk):
         self.__active_user_thread = None
         self.__client = client.ChatClient()
         self.__setup_widgets()
+        #self.__group_chat_window()
 
     def __del__(self):
         if self.__reciever_thread is not None:
@@ -29,17 +32,25 @@ class ChatApp(tk.Tk):
                                                       connected_callback=self.__connected_callback,
                                                       disconnect_callback=self.__disconnected_callback)
         self.connection_frame.grid(row=0, column=0, columnspan=5, sticky=tk.EW)
+        
+        #button for Group Chats
+        self.group_chat_button = tk.Button(text="Group Chat", command=self.__group_chat_window)
+        self.group_chat_button.grid(row=1, sticky=tk.W)
 
         self.__chat_message_frame = frame.ChatMessagesFrame(self)
-        self.__chat_message_frame.grid(row=1, column=2, columnspan=4, sticky=tk.EW)
+        self.__chat_message_frame.grid(row=2, column=2, columnspan=4, sticky=tk.EW)
 
         self.__active_user_frame = frame.ActiveUsersFrame(self, self.username)
-        self.__active_user_frame.grid(row=1, column=0, columnspan=2)
+        self.__active_user_frame.grid(row=2, column=0, columnspan=2)
 
         self.__chatbox_frame = frame.ChatboxFrame(self, self.__client, message_send_callback=self.__message_send_callback)
-        self.__chatbox_frame.grid(row=2, column=2, columnspan=4, sticky=tk.EW)
+        self.__chatbox_frame.grid(row=3, column=2, columnspan=4, sticky=tk.EW)
 
         self.protocol("WM_DELETE_WINDOW", self.__on_close)
+
+    def __group_chat_window(self):
+        group_chat_module(username=self.username, groupname="ABC")
+        
 
     def __on_close(self):
         if self.__client.is_connected:

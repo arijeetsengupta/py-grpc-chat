@@ -49,7 +49,6 @@ class ChatService(chat_pb2_grpc.ChatServicer):
         return chat_pb2.ChatUserConnected(username=request.username)
 
     def disconnect(self, request, context):
-        print(self.users)
         del self.users[request.username]
         return chat_pb2.ChatUserDisconnect(isDisconnected=True)
 
