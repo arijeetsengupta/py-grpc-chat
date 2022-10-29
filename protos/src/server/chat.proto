@@ -8,19 +8,28 @@ service Chat {
     rpc subscribeActiveUsers(ChatUserConnected) returns (stream ChatActiveUser);
     rpc register(Creds) returns (ServerResponse);
     rpc login(Creds) returns (ServerResponse);
+    rpc getAllUsers(Empty) returns (ServerResponse);
+    rpc createGroup(CreateGroupRequest) returns (ServerResponse);
+    rpc getMemberGroups(ChatUser) returns (ServerResponse);
 }
+
+message CreateGroupRequest{
+    string username = 1;
+    string group_name = 2;
+    string group_members = 3;
+}
+
+message Empty{}
 
 message ChatUser {
     string username = 1;
 }
 
 message ChatUserConnected {
-    //string userId = 1;
     string username = 1;
 }
 
 message ChatActiveUser {
-    //string userId = 1;
     string username = 1;
     string currentHash = 2;
 }
@@ -30,11 +39,13 @@ message ChatUserDisconnect {
 }
 
 message ChatMessage {
-    //string userId = 1;
     string username = 1;
     string message = 2;
     string recipient = 3;
-    int32 is_broadcast = 4;
+    bool is_broadcast = 4;
+    bool is_group_chat_msg = 5;
+    string group_name = 6;
+
 }
 
 message Creds {

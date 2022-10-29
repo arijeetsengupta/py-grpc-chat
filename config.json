@@ -1,5 +1,5 @@
 { "config" : {
-        "host": "localhost",
+        "host": "172.17.87.108",
         "port": 50051
     }
 }

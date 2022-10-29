@@ -4,7 +4,7 @@ from threading import Thread
 import src.client.chat_client as client
 
 import src.client.frame as frame
-from group_chat import group_chat_module
+from src.client.frame.group_chat_entry import group_chat_module
 
 class ChatApp(tk.Tk):
 
@@ -49,7 +49,7 @@ class ChatApp(tk.Tk):
         self.protocol("WM_DELETE_WINDOW", self.__on_close)
 
     def __group_chat_window(self):
-        group_chat_module(username=self.username)
+        group_chat_module(username=self.username, groupname="ABC")
         
 
     def __on_close(self):
@@ -88,5 +88,6 @@ class ChatApp(tk.Tk):
         self.__active_user_frame.clear_active_user_list()
 
     def __message_send_callback(self, msg):
-        if msg.is_broadcast:
-            self.__chat_message_frame.add_message(self.__client.username, msg.message)
+        pass
+        # if msg.is_broadcast:
+        #     self.__chat_message_frame.add_message(self.__client.username, msg.message)
