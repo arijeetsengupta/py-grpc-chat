@@ -12,7 +12,7 @@ def main():
     server_host, server_port = utils.get_server_config_from_json()
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=20))  # create a gRPC server
     chat_pb2_grpc.add_ChatServicer_to_server(service, server)  # register the server to gRPC
-    print('Starting server. Listening...')
+    print('Server running on ' + str(server_host) + ':' + str(server_port))
     server.add_insecure_port('[::]:' + str(server_port))
     server.start()
 

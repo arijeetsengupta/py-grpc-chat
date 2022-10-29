@@ -40,7 +40,6 @@ def create_group(username):
 
     def select_users_in_group():
         group_name = inputtxt.get(1.0, "end-1c")
-        # print("groupname="+groupname)
         selusers = tk.Tk()
         selusers.title("Chat Group:"+group_name)
         user_label = tk.Label(selusers, text='Add Users')
@@ -51,16 +50,15 @@ def create_group(username):
         users_list.pack()
 
         def start_group_chat():
-            print("Group name:" + group_name)
             group_members = users_list.getCheckedItems()
             group_members.append(username)
-            print(group_members)
             group_create_backend_response = create_group_backend(username, group_name, group_members)
-            if group_create_backend_response == "Group created successfully":
-                tk.messagebox.showinfo("Response", group_create_backend_response)
+            selusers.destroy()
+            frame.destroy()
+            tk.messagebox.showinfo("Response", group_create_backend_response)
 
         create_group_button = tk.Button(
-            selusers, text= "Create Group", command=start_group_chat)
+            selusers, text="Create Group", command=start_group_chat)
 
         create_group_button.pack()
     # TextBox Creation

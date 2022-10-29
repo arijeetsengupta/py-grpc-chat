@@ -100,7 +100,7 @@ class ChatService(chat_pb2_grpc.ChatServicer):
             data = json.load(json_file)
             for entry in data["users"]:
                 if request.group_name in entry["groups"]:
-                    return chat_pb2.ServerResponse(response="Group already exists!")
+                    return chat_pb2.ServerResponse(response="Group already exists! Please retry with a different name.")
             for entry in data["users"]:
                 if entry["username"] in group_members:
                     entry["groups"].append(request.group_name)
