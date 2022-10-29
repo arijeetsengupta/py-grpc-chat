@@ -7,6 +7,7 @@ import src.utils as utils
 
 
 def subscribe_messages(username, recipient, txt):
+    print("In one-one subscribe message for {}...".format(username))
     server_host, server_port = utils.get_server_config_from_json()
     with grpc.insecure_channel(str(server_host) + ':' + str(server_port)) as channel:
         stub = chat_pb2_grpc.ChatStub(channel)

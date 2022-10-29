@@ -5,6 +5,7 @@ import src.utils as utils
 from src.server.chat_service import ChatService
 from concurrent import futures
 
+
 def main():
     service = ChatService()
 
