@@ -13,7 +13,7 @@ def subscribe_messages(username, recipient, txt):
         stub = chat_pb2_grpc.ChatStub(channel)
         responses = stub.subscribeMessages(chat_pb2.ChatUserConnected(username=username))
         for response in responses:
-            if not response.is_broadcast and ((
+            if not response.is_broadcast and not response.is_group_chat_msg and ((
                     response.recipient == username and response.username == recipient) or (
                     response.recipient == recipient and response.username == username)
             ):

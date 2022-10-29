@@ -10,7 +10,7 @@ class ChatApp(tk.Tk):
 
     def __init__(self, username):
         super(ChatApp, self).__init__()
-        self.title('Welcome to the ChatRoom ' + username + '!')
+        self.title('Welcome ' + username + '!')
         self.grid()
         self.resizable(False, False)
         self.username = username
