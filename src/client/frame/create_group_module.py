@@ -57,6 +57,8 @@ def create_group(username):
             print(group_members)
             group_create_backend_response = create_group_backend(username, group_name, group_members)
             if group_create_backend_response == "Group created successfully":
+                selusers.destroy()
+                frame.destroy()
                 tk.messagebox.showinfo("Response", group_create_backend_response)
 
         create_group_button = tk.Button(
