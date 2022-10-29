@@ -1,4 +1,5 @@
 from email.mime import application
+from sre_parse import State
 import tkinter as tk
 from threading import Thread
 import src.client.chat_client as client
@@ -34,8 +35,8 @@ class ChatApp(tk.Tk):
         self.connection_frame.grid(row=0, column=0, columnspan=5, sticky=tk.EW)
         
         #button for Group Chats
-        self.group_chat_button = tk.Button(text="Group Chat", command=self.__group_chat_window)
-        self.group_chat_button.grid(row=1, sticky=tk.W)
+        self.__group_chat_button = tk.Button(text="Group Chat", command=self.__group_chat_window, state="disabled")
+        self.__group_chat_button.grid(row=0, column=5, sticky=tk.EW)
 
         self.__chat_message_frame = frame.ChatMessagesFrame(self)
         self.__chat_message_frame.grid(row=2, column=2, columnspan=4, sticky=tk.EW)
@@ -59,6 +60,8 @@ class ChatApp(tk.Tk):
 
     def __connected_callback(self):
         self.__chatbox_frame.enable_send_btn()
+        self.__group_chat_button['state'] = "normal"
+        
 
         self.__reciever_thread = Thread(target=self.__message_reciever_handler)
         self.__reciever_thread.start()
@@ -84,6 +87,7 @@ class ChatApp(tk.Tk):
 
     def __disconnected_callback(self):
         self.__chatbox_frame.disable_send_btn()
+        self.__group_chat_button['state'] = "disabled"
         self.__chat_message_frame.clear_chat_messages()
         self.__active_user_frame.clear_active_user_list()
 
