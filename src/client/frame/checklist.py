@@ -1,8 +1,4 @@
 import tkinter as tk
-from src.client.frame.base import BaseChatFrame
-# from src.client.frame.one_one_window import one_one_chat
-from one_one_window import one_one_chat
-from tkinter.messagebox import showinfo
 
 selected_users = []
 
