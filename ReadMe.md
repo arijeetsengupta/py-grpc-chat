@@ -1,6 +1,6 @@
 ## gRPC Chat Application:
 
-This is a simple chat application using gRPC framework coded in Python as the deliverable for our Advanced OS course Assignment I [Group members- Arijeet Sengupta (2022H1030111P), Ipshita Mahapatra (2022H1030128P)].
+This is a simple chat application using gRPC framework coded in Python as the deliverable for our Advanced Operating Systems course Assignment I [Group members- Arijeet Sengupta, Ipshita Mahapatra].
 
 This is a standalone application whose UI is created using the Tkinter package in python. All gRPC methods have also been implemented in Python.
 
